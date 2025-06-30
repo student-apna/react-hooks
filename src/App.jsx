@@ -1,37 +1,30 @@
-import React, {   useState } from 'react'
+import { useEffect, useState } from "react"
 
 const App = () => {
 
-  //  const [brand,setBrand] = useState('Ferrari');
-  //  const [model,setModel] = useState('Roma');
-  //  const [year,setYear] = useState('2025');
-  //  const [color,setColor] = useState('red');
-  // const [car,setCar] = useState({
-  //   brand:"Ferrari",
-  //   color:"red",
-  //   model:"Roma",
-  //   year:"2025"
-  // })
+  const [count,setCount] = useState(0);
 
-  // const changeColor = ()=>{
-  //   setCar((prev)=>{
-  //     return {...prev,color:"blue"}
-  //   })    // we use previous value for updating
-  // }
-  const [counter,setCounter] = useState(0);
-  const increaseCount = ()=>{
-    setCounter((prev)=>{
-      return prev+1;
-    })
-  }
+  useEffect(()=>{
+    setTimeout(()=>{
+       setCount(count=>count+1);   //  The issue here was that the count directly jumped from 0 to 2.
 
-  
-  
-  
+                                       // This happened because we are using StrictMode, which causes functions to run an additional time for development checks.
+
+                                       // So, to fix it, we removed StrictMode from the main.js file.
+
+                                             // There’s another problem: we are using setTimeout, but the count value keeps changing continuously.
+
+                                             // This is happening because we didn’t use any dependency, so whenever any state changes, the effect runs again.
+
+                                               // Here, since the count variable keeps updating, the update keeps running repeatedly.
+
+    },2000);
+  })
   return (
     <>
-       <h1>The counter value is {counter}</h1>
-      <button onClick={increaseCount}>Increase Counter</button>
+
+    <h1>I have rendered {count} times!</h1>
+     
 
       
     </>
